@@ -19,17 +19,15 @@ class App extends React.Component {
     ]
   }
 
-  deleteTodo = deletedId => {
+  deleteTodos = ids => {
     this.setState(({ todos }) => ({
-      todos: todos.filter(({ id }) => id !== deletedId)
+      todos: todos.filter(({ id }) => !ids.includes(id))
     }))
   }
 
-  addTodo = (event, task) => {
-    event.preventDefault()
-    // console.log(task)
+  addTodo = task => {
     const newTodo = {
-      task: task,
+      task,
       id: Date.now(),
       completed: false
     }
@@ -39,10 +37,26 @@ class App extends React.Component {
     })
   }
 
+  toggleTodo = id => {
+    this.setState(({ todos }) => {
+      const i = todos.findIndex(t => t.id === id)
+      return {
+        todos: [
+          ...todos.slice(0, i),
+          {
+            ...todos[i],
+            completed: !todos[i].completed
+          },
+          ...todos.slice(i + 1)
+        ]
+      }
+    })
+  }
+
   render() {
     return (
       <div>
-        <TodoList handleClick={this.completeTodo} todos={this.state.todos} />
+        <TodoList handleClick={this.toggleTodo} todos={this.state.todos} />
         <TodoForm handleSubmit={this.addTodo} />
       </div>
     )

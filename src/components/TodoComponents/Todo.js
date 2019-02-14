@@ -1,11 +1,17 @@
 import React from "react"
+import "./Todo.css"
 
-const Todo = props => (
-  <li
-    onClick={props.handleClick}
-    className={props.completed ? "completed" : ""}
-  >
-    {props.task}
+const styles = {
+  input: "",
+  label: ""
+}
+
+const Todo = ({ handleClick, completed, id, task }) => (
+  <li onClick={() => handleClick(id)} className={completed ? "completed" : ""}>
+    <input type="checkbox" className={styles.input} />
+    <label htmlFor={id} className={styles.label}>
+      <span className={styles.span}>{task}</span>
+    </label>
   </li>
 )
 
