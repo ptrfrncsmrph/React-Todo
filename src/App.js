@@ -37,7 +37,8 @@ class App extends React.Component {
     })
   }
 
-  toggleTodo = id => {
+  toggleTodo = (id, value) => {
+    console.log(value)
     this.setState(({ todos }) => {
       const i = todos.findIndex(t => t.id === id)
       return {
@@ -45,7 +46,7 @@ class App extends React.Component {
           ...todos.slice(0, i),
           {
             ...todos[i],
-            completed: !todos[i].completed
+            completed: value
           },
           ...todos.slice(i + 1)
         ]
@@ -56,7 +57,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <TodoList handleClick={this.toggleTodo} todos={this.state.todos} />
+        <TodoList handleChange={this.toggleTodo} todos={this.state.todos} />
         <TodoForm handleSubmit={this.addTodo} />
       </div>
     )
