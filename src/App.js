@@ -3,6 +3,8 @@ import React from "react"
 import TodoList from "./components/TodoComponents/TodoList"
 import TodoForm from "./components/TodoComponents/TodoForm"
 
+import "./App.css"
+
 class App extends React.Component {
   state = {
     todos: [
@@ -38,7 +40,6 @@ class App extends React.Component {
   }
 
   toggleTodo = (id, value) => {
-    console.log(value)
     this.setState(({ todos }) => {
       const i = todos.findIndex(t => t.id === id)
       return {
@@ -54,12 +55,21 @@ class App extends React.Component {
     })
   }
 
+  clearCompleted = () => {
+    this.setState(({ todos }) => ({
+      todos: todos.filter(({ completed }) => !completed)
+    }))
+  }
+
   render() {
     return (
-      <div>
+      <main>
         <TodoList handleChange={this.toggleTodo} todos={this.state.todos} />
-        <TodoForm handleSubmit={this.addTodo} />
-      </div>
+        <TodoForm
+          clearCompleted={this.clearCompleted}
+          handleSubmit={this.addTodo}
+        />
+      </main>
     )
   }
 }
