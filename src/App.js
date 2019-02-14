@@ -74,27 +74,36 @@ class App extends React.Component {
     }))
   }
 
+  handleQueryChange = ({ target }) => {
+    this.setState(() => ({
+      query: target.value
+    }))
+  }
+
   render() {
     const { query, todos, showCompleted } = this.state
     return (
-      <main>
-        <TodoList
-          todoFilter={pipe(
-            filter(({ task }) => toRegExp(query).test(task)),
-            filter(({ completed }) => (showCompleted ? true : !completed))
-          )}
-          handleChange={this.toggleTodo}
-          todos={todos}
-        />
-
-        <TodoForm
-          clearCompleted={this.clearCompleted}
-          handleSubmit={this.addTodo}
-          toggleShowCompleted={this.toggleShowCompleted}
-          showCompleted={showCompleted}
-          query={query}
-        />
-      </main>
+      <React.Fragment>
+        <main>
+          <TodoForm
+            clearCompleted={this.clearCompleted}
+            handleSubmit={this.addTodo}
+            toggleShowCompleted={this.toggleShowCompleted}
+            showCompleted={showCompleted}
+            handleQueryChange={this.handleQueryChange}
+            query={query}
+          />
+          <TodoList
+            todoFilter={pipe(
+              filter(({ task }) => toRegExp(query).test(task)),
+              filter(({ completed }) => (showCompleted ? true : !completed))
+            )}
+            handleChange={this.toggleTodo}
+            todos={todos}
+          />
+        </main>
+        <pre>this.state = {JSON.stringify(this.state, null, 2)}</pre>
+      </React.Fragment>
     )
   }
 }

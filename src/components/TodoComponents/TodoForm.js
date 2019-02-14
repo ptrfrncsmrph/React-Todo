@@ -1,6 +1,9 @@
 import React from "react"
+import "./TodoForm.css"
 
 const TodoForm = ({
+  query,
+  handleQueryChange,
   handleSubmit,
   clearCompleted,
   toggleShowCompleted,
@@ -8,7 +11,7 @@ const TodoForm = ({
 }) => {
   const textInput = React.createRef()
   return (
-    <React.Fragment>
+    <div className="form">
       <form
         onSubmit={e => {
           e.preventDefault(),
@@ -31,9 +34,9 @@ const TodoForm = ({
 
       <label>
         Filter todos
-        <input type="text" />
+        <input value={query} onChange={handleQueryChange} type="text" />
       </label>
-    </React.Fragment>
+    </div>
   )
 }
 
