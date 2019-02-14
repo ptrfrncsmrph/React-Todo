@@ -5,8 +5,15 @@ import TodoForm from "./components/TodoComponents/TodoForm"
 
 import "./App.css"
 
+const filter = fn => xs => xs.filter(fn)
+const pipe = (...fns) => x => fns.reduce((acc, fn) => fn(acc), x)
+
+const toRegExp = str => new RegExp(str, "ig")
+
 class App extends React.Component {
   state = {
+    query: "",
+    showCompleted: true,
     todos: [
       {
         task: "Organize Garage",
@@ -61,13 +68,31 @@ class App extends React.Component {
     }))
   }
 
+  toggleShowCompleted = () => {
+    this.setState(({ showCompleted }) => ({
+      showCompleted: !showCompleted
+    }))
+  }
+
   render() {
+    const { query, todos, showCompleted } = this.state
     return (
       <main>
-        <TodoList handleChange={this.toggleTodo} todos={this.state.todos} />
+        <TodoList
+          todoFilter={pipe(
+            filter(({ task }) => toRegExp(query).test(task)),
+            filter(({ completed }) => (showCompleted ? true : !completed))
+          )}
+          handleChange={this.toggleTodo}
+          todos={todos}
+        />
+
         <TodoForm
           clearCompleted={this.clearCompleted}
           handleSubmit={this.addTodo}
+          toggleShowCompleted={this.toggleShowCompleted}
+          showCompleted={showCompleted}
+          query={query}
         />
       </main>
     )

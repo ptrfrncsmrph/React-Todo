@@ -1,6 +1,11 @@
 import React from "react"
 
-const TodoForm = ({ handleSubmit, clearCompleted }) => {
+const TodoForm = ({
+  handleSubmit,
+  clearCompleted,
+  toggleShowCompleted,
+  showCompleted
+}) => {
   const textInput = React.createRef()
   return (
     <React.Fragment>
@@ -17,7 +22,9 @@ const TodoForm = ({ handleSubmit, clearCompleted }) => {
         </label>
         <button>Add Todo</button>
       </form>
-      <button type="button">View Completed</button>
+      <button onClick={toggleShowCompleted} type="button">
+        {showCompleted ? "Hide Completed" : "Show Completed"}
+      </button>
       <button onClick={clearCompleted} type="button">
         Clear Completed
       </button>
