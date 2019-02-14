@@ -22,7 +22,7 @@ class TodoForm extends React.Component {
         <input
           type="text"
           value={this.state.input}
-          onChange={e => this.setState()}
+          onChange={e => this.setState({ input: e.target.value })}
         />
       </form>
     )
