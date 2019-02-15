@@ -28,9 +28,9 @@ class App extends React.Component {
     ]
   }
 
-  deleteTodos = ids => {
+  deleteTodo = id => {
     this.setState(({ todos }) => ({
-      todos: todos.filter(({ id }) => !ids.includes(id))
+      todos: todos.filter(({ id: id_ }) => id_ !== id)
     }))
   }
 
@@ -84,6 +84,7 @@ class App extends React.Component {
 
   render() {
     const { query, todos, showCompleted } = this.state
+    const queryRE = toRegExp(query)
     return (
       <React.Fragment>
         <main>
@@ -97,9 +98,11 @@ class App extends React.Component {
           />
           <TodoList
             filter={pipe(
-              filter(({ task }) => toRegExp(query).test(task)),
+              filter(({ task }) => queryRE.test(task)),
               filter(({ completed }) => (showCompleted ? true : !completed))
             )}
+            deleteTodo={this.deleteTodo}
+            query={queryRE}
             toggleTodo={this.toggleTodo}
             handleChange={this.handleTodoChange}
             todos={todos}

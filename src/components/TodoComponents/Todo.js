@@ -4,12 +4,59 @@ import "./Todo.css"
 import toDate from "date-fns/toDate"
 import formatDistance from "date-fns/formatDistance"
 
-const styles = {
-  input: "input",
-  label: "label"
+class Right {
+  constructor(x) {
+    this.value = x
+  }
+  static of(x) {
+    return new Right(x)
+  }
+  map(fn) {
+    return new Right(fn(this.value))
+  }
+  foldMap(fn) {
+    return fn(this.value)
+  }
 }
 
-const Todo = ({ handleChange, toggleTodo, completed, id, task }) => {
+class Left {
+  constructor(x) {
+    this.value = x
+  }
+  static of(x) {
+    return new Left(x)
+  }
+  map(_) {
+    return new Left(this.value)
+  }
+  foldMap(_) {
+    return this.value
+  }
+}
+
+// I probably should have just passed down the string
+const isEmptyQuery = query => query.toString() === "/(?:)/gi"
+
+// This is a brittle zipWith for this specific use case
+const zipWith = fn => ([x, ...xs]) => ([y, ...ys], acc = []) =>
+  x === undefined ? acc : zipWith(fn)(xs)(ys, [...acc, ...fn(x)(y)])
+
+const concat = str1 => str2 => [Left.of(str1), Right.of(str2)]
+
+const highlightMatches = str => query =>
+  zipWith(concat)(str.split(query))(str.match(query)).map(s =>
+    s.foldMap(t => <mark>{t}</mark>)
+  )
+
+const Todo = ({
+  handleChange,
+  deleteTodo,
+  toggleTodo,
+  completed,
+  id,
+  task,
+  query
+}) => {
   const input = React.useRef()
   const [editMode, setEditMode] = React.useState(false)
   const handleSubmit = () => {
@@ -25,16 +72,17 @@ const Todo = ({ handleChange, toggleTodo, completed, id, task }) => {
         }}
         type="checkbox"
         checked={completed}
-        className={styles.input}
         id={id}
       />
-      <label htmlFor={id} className={styles.label}>
+      <label htmlFor={id}>
         {editMode ? (
           <form onSubmit={handleSubmit}>
             <input autoFocus type="text" ref={input} defaultValue={task} />
           </form>
         ) : (
-          <span>{task}</span>
+          <span>
+            {isEmptyQuery(query) ? task : highlightMatches(task)(query)}
+          </span>
         )}
       </label>
       {editMode ? (
@@ -48,7 +96,13 @@ const Todo = ({ handleChange, toggleTodo, completed, id, task }) => {
           Edit
         </button>
       )}
-      <button onClick={() => {}}>Delete</button>
+      <button
+        onClick={() => {
+          deleteTodo(id)
+        }}
+      >
+        Delete
+      </button>
       <div>Added {formatDistance(toDate(id), new Date())} ago</div>
     </li>
   )

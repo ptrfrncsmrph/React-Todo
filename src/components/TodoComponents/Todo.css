@@ -41,14 +41,14 @@ li input[type="checkbox"]:checked ~ label {
   color: var(--text-6);
 }
 
-li input[type="checkbox"]:checked ~ label:before {
-  box-shadow: inset 0 0 0 1px var(--background);
-  background-color: var(--text);
+input[type="checkbox"]:checked ~ label:before {
+  background-color: var(--text-9);
 }
 
 input[type="checkbox"]:focus ~ label:before {
   box-shadow: 0 0 0 2px var(--background), 0 0 0 3px var(--text);
 }
+
 
 li form {
   display: contents;
