@@ -1,6 +1,9 @@
 import React from "react"
 import "./Todo.css"
 
+import toDate from "date-fns/toDate"
+import formatDistance from "date-fns/formatDistance"
+
 const styles = {
   input: "input",
   label: "label"
@@ -9,6 +12,11 @@ const styles = {
 const Todo = ({ handleChange, toggleTodo, completed, id, task }) => {
   const input = React.useRef()
   const [editMode, setEditMode] = React.useState(false)
+  const handleSubmit = () => {
+    handleChange(id, input.current.value)
+    setEditMode(!editMode)
+  }
+
   return (
     <li className={completed ? "completed" : ""}>
       <input
@@ -22,20 +30,15 @@ const Todo = ({ handleChange, toggleTodo, completed, id, task }) => {
       />
       <label htmlFor={id} className={styles.label}>
         {editMode ? (
-          <input autoFocus type="text" ref={input} defaultValue={task} />
+          <form onSubmit={handleSubmit}>
+            <input autoFocus type="text" ref={input} defaultValue={task} />
+          </form>
         ) : (
           <span>{task}</span>
         )}
       </label>
       {editMode ? (
-        <button
-          onClick={() => {
-            handleChange(id, input.current.value)
-            setEditMode(!editMode)
-          }}
-        >
-          Submit
-        </button>
+        <button onClick={handleSubmit}>Submit</button>
       ) : (
         <button
           onClick={() => {
@@ -46,7 +49,7 @@ const Todo = ({ handleChange, toggleTodo, completed, id, task }) => {
         </button>
       )}
       <button onClick={() => {}}>Delete</button>
-      <desc>Added yesterday</desc>
+      <div>Added {formatDistance(toDate(id), new Date())} ago</div>
     </li>
   )
 }

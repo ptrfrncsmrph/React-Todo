@@ -3,10 +3,19 @@ ul {
 }
 
 li {
+  padding: 0;
   position: relative;
-  width: fit-content;
   text-decoration: none;
+  margin-bottom: 1rem;
   /* -moz-user-select: none; */
+}
+
+li div {
+  font-size: 0.75rem;
+  font-style: italic;
+  /* I'm not sure why I need this */
+  margin-left: 12px;
+  color: var(--text-9);
 }
 
 li input[type="checkbox"] {
@@ -29,7 +38,7 @@ li label:before {
 }
 
 li input[type="checkbox"]:checked ~ label {
-  color: var(--text-lt);
+  color: var(--text-6);
 }
 
 li input[type="checkbox"]:checked ~ label:before {
@@ -41,6 +50,9 @@ input[type="checkbox"]:focus ~ label:before {
   box-shadow: 0 0 0 2px var(--background), 0 0 0 3px var(--text);
 }
 
+li form {
+  display: contents;
+}
 
 /* .completed > label {
 } */
