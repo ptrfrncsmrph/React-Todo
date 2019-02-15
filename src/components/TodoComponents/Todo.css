@@ -19,11 +19,11 @@ li input[type="checkbox"] {
 li label:before {
   content: "";
   position: absolute;
-  width: 0.5em;
-  height: 0.5em;
+  width: 8px;
+  height: 8px;
   display: block;
-  top: 0.35em;
-  left: -0.35em;
+  top: 5px;
+  left: -5px;
   border: 1px solid var(--text);
   border-radius: 1em;
 }
@@ -37,7 +37,7 @@ li input[type="checkbox"]:checked ~ label:before {
 }
 
 input[type="checkbox"]:focus ~ label:before {
-  box-shadow: 0 0 0 3px var(--background), 0 0 0 4px var(--text);
+  box-shadow: 0 0 0 2px var(--background), 0 0 0 3px var(--text);
 }
 
 
