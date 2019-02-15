@@ -47,19 +47,12 @@ class App extends React.Component {
   }
 
   toggleTodo = (id, value) => {
-    this.setState(({ todos }) => {
-      const i = todos.findIndex(t => t.id === id)
-      return {
-        todos: [
-          ...todos.slice(0, i),
-          {
-            ...todos[i],
-            completed: value
-          },
-          ...todos.slice(i + 1)
-        ]
-      }
-    })
+    this.setState(({ todos }) => ({
+      todos: todos.map(todo => ({
+        ...todo,
+        completed: todo.id === id ? value : todo.completed
+      }))
+    }))
   }
 
   clearCompleted = () => {
