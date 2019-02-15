@@ -54,6 +54,10 @@ li form {
   display: contents;
 }
 
+mark {
+  font-weight: 600;
+}
+
 /* .completed > label {
 } */
 

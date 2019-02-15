@@ -12,6 +12,16 @@ class App extends React.Component {
     showCompleted: true,
     todos: [
       {
+        task: "Learn React",
+        id: 1207017084358,
+        completed: false
+      },
+      {
+        task: "Learn Haskell",
+        id: 1507017084358,
+        completed: false
+      },
+      {
         task: "Organize Garage",
         id: 1528817077286,
         completed: false
