@@ -73,6 +73,15 @@ class App extends React.Component {
     }))
   }
 
+  handleTodoChange = (id, value) => {
+    this.setState(({ todos }) => ({
+      todos: todos.map(todo => ({
+        ...todo,
+        task: todo.id === id ? value : todo.task
+      }))
+    }))
+  }
+
   render() {
     const { query, todos, showCompleted } = this.state
     return (
@@ -87,15 +96,16 @@ class App extends React.Component {
             query={query}
           />
           <TodoList
-            todoFilter={pipe(
+            filter={pipe(
               filter(({ task }) => toRegExp(query).test(task)),
               filter(({ completed }) => (showCompleted ? true : !completed))
             )}
-            handleChange={this.toggleTodo}
+            toggleTodo={this.toggleTodo}
+            handleChange={this.handleTodoChange}
             todos={todos}
           />
         </main>
-        {/* <pre>this.state = {JSON.stringify(this.state, null, 2)}</pre> */}
+        <pre>this.state = {JSON.stringify(this.state, null, 2)}</pre>
       </React.Fragment>
     )
   }
