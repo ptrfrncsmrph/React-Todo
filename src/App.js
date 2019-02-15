@@ -8,7 +8,7 @@ import "./App.css"
 const filter = fn => xs => xs.filter(fn)
 const pipe = (...fns) => x => fns.reduce((acc, fn) => fn(acc), x)
 
-const toRegExp = str => new RegExp(str, "ig")
+const toRegExp = str => new RegExp(str, "gi")
 
 class App extends React.Component {
   state = {
@@ -84,7 +84,6 @@ class App extends React.Component {
 
   render() {
     const { query, todos, showCompleted } = this.state
-    const queryRE = toRegExp(query)
     return (
       <React.Fragment>
         <main>
@@ -98,11 +97,11 @@ class App extends React.Component {
           />
           <TodoList
             filter={pipe(
-              filter(({ task }) => queryRE.test(task)),
+              filter(({ task }) => toRegExp(query).test(task)),
               filter(({ completed }) => (showCompleted ? true : !completed))
             )}
             deleteTodo={this.deleteTodo}
-            query={queryRE}
+            query={query}
             toggleTodo={this.toggleTodo}
             handleChange={this.handleTodoChange}
             todos={todos}

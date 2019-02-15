@@ -34,8 +34,7 @@ class Left {
   }
 }
 
-// I probably should have just passed down the string
-const isEmptyQuery = query => query.toString() === "/(?:)/gi"
+const toRegExp = str => new RegExp(str, "gi")
 
 // This is a brittle zipWith for this specific use case
 const zipWith = fn => ([x, ...xs]) => ([y, ...ys], acc = []) =>
@@ -80,9 +79,7 @@ const Todo = ({
             <input autoFocus type="text" ref={input} defaultValue={task} />
           </form>
         ) : (
-          <span>
-            {isEmptyQuery(query) ? task : highlightMatches(task)(query)}
-          </span>
+          <span>{query ? highlightMatches(task)(toRegExp(query)) : task}</span>
         )}
       </label>
       {editMode ? (
