@@ -4,45 +4,9 @@ import "./Todo.css"
 import toDate from "date-fns/toDate"
 import formatDistance from "date-fns/formatDistance"
 
-class Right {
-  constructor(x) {
-    this.value = x
-  }
-  static of(x) {
-    return new Right(x)
-  }
-  map(fn) {
-    return new Right(fn(this.value))
-  }
-  foldMap(fn) {
-    return fn(this.value)
-  }
-}
+import { toRegExp, concatLR, zipWith } from "../../lib"
 
-class Left {
-  constructor(x) {
-    this.value = x
-  }
-  static of(x) {
-    return new Left(x)
-  }
-  map(_) {
-    return new Left(this.value)
-  }
-  foldMap(_) {
-    return this.value
-  }
-}
-
-const toRegExp = str => new RegExp(str, "gi")
-
-// This is a brittle zipWith for this specific use case
-const zipWith = fn => ([x, ...xs]) => ([y, ...ys], acc = []) =>
-  x === undefined ? acc : zipWith(fn)(xs)(ys, [...acc, ...fn(x)(y)])
-
-const concatLR = str1 => str2 => [Left.of(str1), Right.of(str2)]
-
-const highlightMatches = str => query =>
+export const highlightMatches = str => query =>
   zipWith(concatLR)(str.split(query))(str.match(query)).map(s =>
     s.foldMap(t => <mark>{t}</mark>)
   )

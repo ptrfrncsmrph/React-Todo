@@ -2,13 +2,9 @@ import React from "react"
 
 import TodoList from "./components/TodoComponents/TodoList"
 import TodoForm from "./components/TodoComponents/TodoForm"
+import { filter, pipe, toRegExp } from "./lib"
 
 import "./App.css"
-
-const filter = fn => xs => xs.filter(fn)
-const pipe = (...fns) => x => fns.reduce((acc, fn) => fn(acc), x)
-
-const toRegExp = str => new RegExp(str, "gi")
 
 class App extends React.Component {
   state = {
