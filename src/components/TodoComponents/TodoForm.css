@@ -1,0 +1,18 @@
+.form {
+  display: contents;
+}
+
+.form label {
+  margin-top: 0.5rem;
+  display: flex;
+  width: max-content;
+  flex-direction: column;
+}
+
+.form form {
+  margin-bottom: 0.5rem;
+}
+
+button + button {
+  color: red;
+}

@@ -3,9 +3,11 @@ import Todo from "./Todo"
 
 const TodoList = ({ todos, todoFilter: filter, handleChange }) => (
   <ul>
-    {filter(todos).map(todo => (
-      <Todo key={todo.id} handleChange={handleChange} {...todo} />
-    ))}
+    {filter(todos).length
+      ? filter(todos).map(todo => (
+          <Todo key={todo.id} handleChange={handleChange} {...todo} />
+        ))
+      : "Nothing to show"}
   </ul>
 )
 
