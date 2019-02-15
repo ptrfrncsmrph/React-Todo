@@ -41,10 +41,10 @@ const isEmptyQuery = query => query.toString() === "/(?:)/gi"
 const zipWith = fn => ([x, ...xs]) => ([y, ...ys], acc = []) =>
   x === undefined ? acc : zipWith(fn)(xs)(ys, [...acc, ...fn(x)(y)])
 
-const concat = str1 => str2 => [Left.of(str1), Right.of(str2)]
+const concatLR = str1 => str2 => [Left.of(str1), Right.of(str2)]
 
 const highlightMatches = str => query =>
-  zipWith(concat)(str.split(query))(str.match(query)).map(s =>
+  zipWith(concatLR)(str.split(query))(str.match(query)).map(s =>
     s.foldMap(t => <mark>{t}</mark>)
   )
 
