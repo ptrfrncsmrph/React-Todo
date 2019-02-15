@@ -107,7 +107,7 @@ class App extends React.Component {
             todos={todos}
           />
         </main>
-        <pre>this.state = {JSON.stringify(this.state, null, 2)}</pre>
+        {/* <pre>this.state = {JSON.stringify(this.state, null, 2)}</pre> */}
       </React.Fragment>
     )
   }
