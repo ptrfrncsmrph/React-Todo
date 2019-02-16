@@ -3,7 +3,6 @@ ul {
 }
 
 li {
-  padding: 0;
   position: relative;
   text-decoration: none;
   margin-bottom: 1rem;
@@ -15,7 +14,7 @@ li div {
   font-style: italic;
   /* I'm not sure why I need this */
   margin-left: 12px;
-  color: var(--text-9);
+  color: var(--text-6);
 }
 
 li input[type="checkbox"] {
@@ -23,6 +22,11 @@ li input[type="checkbox"] {
   z-index: -1;
   width: 1px;
   height: 1px;
+}
+
+li label span {
+  display: inline-block;
+  width: 10rem;
 }
 
 li label:before {
@@ -33,12 +37,12 @@ li label:before {
   display: block;
   top: 5px;
   left: -5px;
-  border: 1px solid var(--text);
+  border: 1px solid var(--text-9);
   border-radius: 1em;
 }
 
 li input[type="checkbox"]:checked ~ label {
-  color: var(--text-6);
+  color: var(--text-3);
 }
 
 input[type="checkbox"]:checked ~ label:before {
@@ -46,16 +50,37 @@ input[type="checkbox"]:checked ~ label:before {
 }
 
 input[type="checkbox"]:focus ~ label:before {
-  box-shadow: 0 0 0 2px var(--background), 0 0 0 3px var(--text);
+  box-shadow: 0 0 0 2px var(--background), 0 0 0 3px var(--text-9);
 }
-
 
 li form {
   display: contents;
 }
 
+li form input {
+  padding: 0;
+  font-size: 1rem;
+  width: 10rem;
+  border: 0;
+  background-color: var(--ltgray-3);
+  outline: 1px solid var(--ltgray-3);
+  color: var(--red);
+}
+
 mark {
   font-weight: 600;
+}
+
+li button {
+  border-radius: 1rem 0 0 1rem;
+  margin: 0px;
+  margin-left: 4px;
+}
+
+li button + button {
+  border-radius: 0 1rem 1rem 0;
+  border-left: none;
+  margin: 0px;
 }
 
 /* .completed > label {

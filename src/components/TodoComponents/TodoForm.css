@@ -13,6 +13,24 @@
   margin-bottom: 0.5rem;
 }
 
+button {
+  border: 1px solid var(--text-3);
+  background: var(--background);
+  padding: 4px 12px;
+  margin: 4px 0;
+  font-weight: 600;
+}
+
+button:focus {
+  color: var(--background);
+  background: var(--text);
+}
+
 button + button {
-  color: red;
+  color: var(--red);
+  margin-left: 4px;
+}
+
+button + button:focus {
+  background: var(--red);
 }

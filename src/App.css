@@ -4,6 +4,9 @@
   --background: white;
   --text-9: #0009;
   --text-6: #0006;
+  --text-3: #0003;
+  --ltgray-3: #ccc3;
+  --red: #e01;
 }
 
 @keyframes expand-width {
@@ -14,4 +17,3 @@
     width: 100%;
   }
 }
-
