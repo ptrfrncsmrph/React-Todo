@@ -4,8 +4,6 @@ import "./Todo.css"
 import toDate from "date-fns/toDate"
 import formatDistance from "date-fns/formatDistance"
 
-import zipWith from "lodash/fp/zipWith"
-
 import { toRegExp } from "../../lib"
 import zipWith from "lodash/fp/zipWith"
 

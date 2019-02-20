@@ -28,10 +28,10 @@ export class Left {
   }
 }
 
-// export const zipWith = fn => ([x, ...xs]) => ([y, ...ys], acc = []) =>
-// x === undefined ? acc : zipWith(fn)(xs)(ys, [...acc, fn(x)(y)])
+export const zipWith = fn => ([x, ...xs]) => ([y, ...ys], acc = []) =>
+  x === undefined ? acc : zipWith(fn)(xs)(ys, [...acc, fn(x)(y)])
 
-// zipWith(a => b => a + b)([0, 1, 2])([1, 2, 3]) //?
+zipWith(a => b => a + b)([0, 1, 2])([1, 2, 3]) //?
 
 export const concatLR = str1 => str2 => [Left.of(str1), Right.of(str2)]
 
