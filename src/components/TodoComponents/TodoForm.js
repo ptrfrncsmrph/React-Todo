@@ -14,9 +14,9 @@ const TodoForm = ({
     <div className="form">
       <form
         onSubmit={e => {
-          e.preventDefault(),
-            handleSubmit(textInput.current.value),
-            (textInput.current.value = "")
+          e.preventDefault()
+          handleSubmit(textInput.current.value)
+          textInput.current.value = ""
         }}
       >
         <label>

@@ -4,12 +4,22 @@ import "./Todo.css"
 import toDate from "date-fns/toDate"
 import formatDistance from "date-fns/formatDistance"
 
-import { toRegExp, concatLR, zipWith } from "../../lib"
+import zipWith from "lodash/fp/zipWith"
 
-export const highlightMatches = str => query =>
-  zipWith(concatLR)(str.split(query))(str.match(query)).map(s =>
-    s.foldMap(t => <mark>{t}</mark>)
-  )
+import { toRegExp } from "../../lib"
+import zipWith from "lodash/fp/zipWith"
+
+// const highlightMatches = str => query =>
+//   zipWith(concatLR)(str.split(query))(str.match(query)).map(s =>
+//     s.foldMap(t => <mark>{t}</mark>)
+//   )
+
+// highlightMatches :: String -> RegExp -> [JSX]
+const highlightMatches = str => query => {
+  const misses = str.split(query)
+  const matches = str.match(query)
+  return zipWith((x, y) => [x, <mark>{y}</mark>], misses, matches).flat()
+}
 
 const Todo = ({
   handleChange,

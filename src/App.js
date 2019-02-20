@@ -13,12 +13,12 @@ class App extends React.Component {
     todos: [
       {
         task: "Learn React",
-        id: 1207017084358,
+        id: 1127017084358,
         completed: false
       },
       {
         task: "Learn Haskell",
-        id: 1507017084358,
+        id: 1526555555358,
         completed: false
       },
       {
